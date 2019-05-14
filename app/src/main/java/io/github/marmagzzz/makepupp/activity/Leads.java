@@ -99,7 +99,5 @@ public class Leads extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Leads.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(leadsAdapter);
-
-        if(leadsAdapter.getItemCount() != )
     }
 }
