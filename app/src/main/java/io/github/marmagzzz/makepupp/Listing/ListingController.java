@@ -18,6 +18,7 @@ public class ListingController {
     private Timer taskTimer;
     private LeadsAdapter leadsAdapter;
     private ArrayList<model.Record> listingArrayList;
+    private FetchingInterface fetchingInterface;
 
     public ListingController(String userId) {
         this.userId = userId;
@@ -26,9 +27,12 @@ public class ListingController {
         this.leadsAdapter = new LeadsAdapter(null);
         this.listingModel = new ListingModel();
         this.listingArrayList = new ArrayList<>();
+
     }
 
-    public void fetchListing(final RecyclerView recyclerView){
+    public void fetchListing(final FetchingInterface fetchingInterface){
+        this.fetchingInterface = fetchingInterface;
+
         listingModel.getLeadRecordsList(userId, new ListingInterface() {
             @Override
             public void onSuccess(Response<LeadsModel> leadsModelResponse, final int page) {
@@ -38,13 +42,13 @@ public class ListingController {
 
                 leadsAdapter = new LeadsAdapter(listingArrayList);
 
-                recyclerView.setAdapter(leadsAdapter);
+                fetchingInterface.onSuccessFetchingList(leadsAdapter);
 
                 taskTimer.schedule(new TimerTask() {
                     @Override
                     public void run() {
                         listingModel.setPage(page + 1); //increment page
-                        fetchListing(recyclerView);
+                        fetchListing(fetchingInterface);
                     }
                 }, 2000);
             }
@@ -52,11 +56,13 @@ public class ListingController {
             @Override
             public void onFail(String message, int page) {
                 System.out.println("ON FAIL: " + message);
+                fetchingInterface.onFailFetchingList(message);
             }
 
             @Override
             public void onMaxPage(String message, int page) {
                 System.out.println("ON REACHED MAX PAGE: " + message);
+                fetchingInterface.onFailFetchingList(message);
             }
         });
 

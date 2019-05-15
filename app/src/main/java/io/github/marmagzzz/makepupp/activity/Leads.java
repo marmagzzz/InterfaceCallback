@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 import io.github.marmagzzz.makepupp.Listing.ListingController;
 import io.github.marmagzzz.makepupp.Listing.ListingModel;
 import io.github.marmagzzz.makepupp.R;
@@ -21,8 +22,6 @@ public class Leads extends AppCompatActivity {
 
     private ListingController listingController;
 
-    private ListingModel listingModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +37,18 @@ public class Leads extends AppCompatActivity {
 
         listingController = new ListingController(userId);
 
-        listingController.fetchListing(recyclerView);
+        listingController.fetchListing(new FetchingInterface() {
+            @Override
+            public void onSuccessFetchingList(LeadsAdapter leadsAdapter) {
+                recyclerView.setAdapter(leadsAdapter);
+            }
+
+            @Override
+            public void onFailFetchingList(String message) {
+                Toast.makeText(Leads.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
-
 
 }
