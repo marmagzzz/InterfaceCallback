@@ -48,7 +48,7 @@ public class ListingController {
                         listingModel.setPage(page + 1); //increment page
                         fetchListing(fetchingInterface);
                     }
-                }, 2000);
+                }, 10000);
             }
 
             @Override
