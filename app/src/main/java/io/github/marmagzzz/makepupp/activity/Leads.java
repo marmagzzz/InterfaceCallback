@@ -8,9 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 import io.github.marmagzzz.makepupp.Listing.ListingController;
-import io.github.marmagzzz.makepupp.Listing.ListingModel;
 import io.github.marmagzzz.makepupp.R;
-import io.github.marmagzzz.makepupp.adapter.LeadsAdapter;
+import io.github.marmagzzz.makepupp.Listing.RecyclerAdapter.LeadsAdapter;
 import io.github.marmagzzz.makepupp.my_interface.FetchingInterface;
 
 public class Leads extends AppCompatActivity {

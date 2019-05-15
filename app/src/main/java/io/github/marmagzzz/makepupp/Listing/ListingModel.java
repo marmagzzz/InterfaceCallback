@@ -20,6 +20,7 @@ public class ListingModel {
 
     public ListingModel() {
         this.page = 0;
+        this.leadRecordsList = new ArrayList<>();
     }
 
     public int getPage() {

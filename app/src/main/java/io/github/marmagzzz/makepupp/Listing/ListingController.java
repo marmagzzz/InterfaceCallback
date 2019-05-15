@@ -1,7 +1,6 @@
 package io.github.marmagzzz.makepupp.Listing;
 
-import android.support.v7.widget.RecyclerView;
-import io.github.marmagzzz.makepupp.adapter.LeadsAdapter;
+import io.github.marmagzzz.makepupp.Listing.RecyclerAdapter.LeadsAdapter;
 import io.github.marmagzzz.makepupp.my_interface.FetchingInterface;
 import model.LeadsModel;
 import retrofit2.Response;

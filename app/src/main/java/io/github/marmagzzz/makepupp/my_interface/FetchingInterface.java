@@ -1,6 +1,6 @@
 package io.github.marmagzzz.makepupp.my_interface;
 
-import io.github.marmagzzz.makepupp.adapter.LeadsAdapter;
+import io.github.marmagzzz.makepupp.Listing.RecyclerAdapter.LeadsAdapter;
 
 public interface FetchingInterface {
 

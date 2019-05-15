@@ -1,5 +1,6 @@
 package io.github.marmagzzz.makepupp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,11 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import io.github.marmagzzz.makepupp.Login.LoginController;
+import io.github.marmagzzz.makepupp.Login.RequestLoginInterface;
 import io.github.marmagzzz.makepupp.R;
 import io.github.marmagzzz.makepupp.objectclass.Login;
 import io.github.marmagzzz.makepupp.my_interface.LoginInterface;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+
+    private LoginController loginController;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,19 +31,24 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Login newUser = new Login(
-                        et_emailAdd.getText().toString(),
-                        et_password.getText().toString(),
-                        getApplicationContext());
-                newUser.login(new LoginInterface() {
+
+                loginController = new LoginController(
+                    et_emailAdd.getText().toString(),
+                    et_password.getText().toString());
+
+                loginController.manualLogin(new RequestLoginInterface() {
                     @Override
-                    public void onSucceed(String result) {
-                        Toast.makeText(getApplicationContext(), "Logging in succeed.", Toast.LENGTH_SHORT).show();
+                    public void onSuccessLogin(String message, Response<model.User> response) {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent( getApplicationContext(), Leads.class );
+                        intent.putExtra("userId", response.body().getUserId().toString());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        getApplicationContext().startActivity(intent);
                     }
 
                     @Override
-                    public void onFailed(String result) {
-                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                    public void onFailLogin(String message) {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
