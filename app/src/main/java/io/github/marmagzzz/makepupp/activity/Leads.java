@@ -1,6 +1,7 @@
 package io.github.marmagzzz.makepupp.activity;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,11 +17,11 @@ public class Leads extends AppCompatActivity {
 
     private String userId;
     private Intent intent;
-    private int page = 0;
 
     private RecyclerView recyclerView;
 
     private ListingController listingController;
+    private Parcelable recyclerViewState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,9 @@ public class Leads extends AppCompatActivity {
         listingController.fetchListing(new FetchingInterface() {
             @Override
             public void onSuccessFetchingList(LeadsAdapter leadsAdapter) {
+                recyclerViewState = recyclerView.getLayoutManager().onSaveInstanceState(); //save last position
                 recyclerView.setAdapter(leadsAdapter);
+                recyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState); //restore last position
             }
 
             @Override
