@@ -18,7 +18,6 @@ public class ListingController {
     private Timer taskTimer;
     private LeadsAdapter leadsAdapter;
     private ArrayList<model.Record> listingArrayList;
-    private FetchingInterface fetchingInterface;
 
     public ListingController(String userId) {
         this.userId = userId;
@@ -31,7 +30,6 @@ public class ListingController {
     }
 
     public void fetchListing(final FetchingInterface fetchingInterface){
-        this.fetchingInterface = fetchingInterface;
 
         listingModel.getLeadRecordsList(userId, new ListingInterface() {
             @Override

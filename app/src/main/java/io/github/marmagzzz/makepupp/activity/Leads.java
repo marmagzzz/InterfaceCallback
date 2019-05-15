@@ -29,13 +29,12 @@ public class Leads extends AppCompatActivity {
 
         intent = getIntent();
         userId = intent.getStringExtra("userId");
+        listingController = new ListingController(userId);
 
         recyclerView = findViewById(R.id.lead_recyclerview);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Leads.this);
         recyclerView.setLayoutManager(layoutManager);
-
-        listingController = new ListingController(userId);
 
         listingController.fetchListing(new FetchingInterface() {
             @Override
