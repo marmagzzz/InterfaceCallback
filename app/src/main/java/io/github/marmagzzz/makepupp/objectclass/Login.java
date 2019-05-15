@@ -36,6 +36,7 @@ public class Login {
                             loginInterface.onSucceed(response.body().toString());
                             Intent intent = new Intent(mContext, Leads.class);
                             intent.putExtra("userId", response.body().getUserId().toString());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             mContext.startActivity(intent);
                         }
                         else{
