@@ -2,6 +2,7 @@ package io.github.marmagzzz.makepupp.Listing;
 
 import io.github.marmagzzz.makepupp.my_interface.LeadsApi;
 import model.LeadsModel;
+import model.Record;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,6 +28,14 @@ public class ListingModel {
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    public ArrayList<Record> getLeadRecordsList() {
+        return leadRecordsList;
+    }
+
+    public void setLeadRecordsList(ArrayList<Record> leadRecordsList) {
+        this.leadRecordsList = leadRecordsList;
     }
 
     public void getLeadRecordsList (String userId, final ListingInterface listingInterface) {

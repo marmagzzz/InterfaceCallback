@@ -1,8 +1,8 @@
 package io.github.marmagzzz.makepupp.Listing;
 
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 import io.github.marmagzzz.makepupp.adapter.LeadsAdapter;
+import io.github.marmagzzz.makepupp.my_interface.FetchingInterface;
 import model.LeadsModel;
 import retrofit2.Response;
 
@@ -14,14 +14,13 @@ public class ListingController {
 
     private ListingModel listingModel;
     private String userId;
+
     private Timer taskTimer;
-    private RecyclerView recyclerView;
     private LeadsAdapter leadsAdapter;
     private ArrayList<model.Record> listingArrayList;
 
-    public ListingController(String userId, int page, RecyclerView recyclerView) {
+    public ListingController(String userId) {
         this.userId = userId;
-        this.recyclerView = recyclerView;
 
         this.taskTimer = new Timer();
         this.leadsAdapter = new LeadsAdapter(null);
@@ -29,18 +28,23 @@ public class ListingController {
         this.listingArrayList = new ArrayList<>();
     }
 
-    public void fetchListing(){
+    public void fetchListing(final RecyclerView recyclerView){
         listingModel.getLeadRecordsList(userId, new ListingInterface() {
             @Override
             public void onSuccess(Response<LeadsModel> leadsModelResponse, final int page) {
                 listingArrayList.addAll(leadsModelResponse.body().getLeads().getRecords());
+
+                listingModel.setLeadRecordsList(listingArrayList);
+
                 leadsAdapter = new LeadsAdapter(listingArrayList);
+
                 recyclerView.setAdapter(leadsAdapter);
+
                 taskTimer.schedule(new TimerTask() {
                     @Override
                     public void run() {
                         listingModel.setPage(page + 1); //increment page
-                        fetchListing();
+                        fetchListing(recyclerView);
                     }
                 }, 2000);
             }
@@ -55,6 +59,7 @@ public class ListingController {
                 System.out.println("ON REACHED MAX PAGE: " + message);
             }
         });
+
     }
 
 
