@@ -12,12 +12,18 @@
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="match_parent">-->
         <!--</android.support.v7.widget.RecyclerView>-->
-        
+
         <LinearLayout
             android:id="@+id/leads_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+                <TextView
+                    android:text="Progress: "
+                    android:id="@+id/textview_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
         </LinearLayout>
         

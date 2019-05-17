@@ -31,10 +31,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+//                loginController = new LoginController(
+//                    et_emailAdd.getText().toString(),
+//                    et_password.getText().toString());
                 loginController = new LoginController(
-                    et_emailAdd.getText().toString(),
-                    et_password.getText().toString());
-
+                    "marvin@xtendly.com",
+                    "1234");
                 loginController.manualLogin(new RequestLoginInterface() {
                     @Override
                     public void onSuccessLogin(String message, Response<model.User> response) {

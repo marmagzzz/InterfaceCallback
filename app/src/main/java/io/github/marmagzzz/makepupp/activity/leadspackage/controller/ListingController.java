@@ -46,14 +46,15 @@ public class ListingController {
                 //Set callback for request
                 fetchingInterface.onSuccessFetchingList(leadsAdapter);
 
+                listingModel.setPage(page + 1);
                 //Repeat after 10 seconds
-                taskTimer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        listingModel.setPage(page + 1); //increment page
-                        fetchListing(fetchingInterface);
-                    }
-                }, 10000);
+//                taskTimer.schedule(new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        listingModel.setPage(page + 1); //increment page
+//                        fetchListing(fetchingInterface);
+//                    }
+//                }, 10000);
 
             }
 
