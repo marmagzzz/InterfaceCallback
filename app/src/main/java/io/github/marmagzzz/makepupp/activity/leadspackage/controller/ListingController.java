@@ -16,17 +16,13 @@ public class ListingController {
     private ListingModel listingModel;
     private LeadsRecyclerViewFragment leadsRecyclerViewFragment;
 
-    private String userId;
-
     private Timer taskTimer;
     private LeadsAdapter leadsAdapter;
 
     public ListingController( ListingModel listingModel,
-                              LeadsRecyclerViewFragment leadsRecyclerViewFragment,
-                              String userId) {
+                              LeadsRecyclerViewFragment leadsRecyclerViewFragment ) {
         this.listingModel = listingModel;
         this.leadsRecyclerViewFragment = leadsRecyclerViewFragment;
-        this.userId = userId;
 
         this.taskTimer = new Timer();
         this.leadsAdapter = new LeadsAdapter(null);
@@ -36,7 +32,7 @@ public class ListingController {
 
     public void fetchListing(final FetchingInterface fetchingInterface){
 
-        listingModel.fetchLeadRecordList(userId, new ListingInterface() {
+        listingModel.fetchLeadRecordList(new ListingInterface() {
             @Override
             public void onSuccess(Response<LeadsModel> leadsModelResponse, final int page) {
 

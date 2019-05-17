@@ -35,8 +35,6 @@ public class LeadsRecyclerViewFragment extends Fragment {
         this.layoutManager = new LinearLayoutManager(rootView.getContext());
         this.listingRecyclerView.setLayoutManager(layoutManager);
 
-        saveRecyclerViewCurrentPosition();
-
         this.container = getActivity();
 
         return rootView;

@@ -37,7 +37,7 @@ public class Leads extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         //MODEL
-        listingModel = new ListingModel();
+        listingModel = new ListingModel(userId);
 
         //VIEW
         leadsRecyclerViewFragment = new LeadsRecyclerViewFragment();
@@ -47,7 +47,7 @@ public class Leads extends AppCompatActivity {
             fragmentTransaction.commit();
 
         //CONTROLLER
-        listingController = new ListingController(listingModel, leadsRecyclerViewFragment, userId);
+        listingController = new ListingController(listingModel, leadsRecyclerViewFragment);
 
         listingController.fetchListing(new FetchingInterface() {
             @Override

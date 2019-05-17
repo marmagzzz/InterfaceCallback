@@ -46,14 +46,14 @@ public class ListingModel {
     }
 
 
-    public void fetchLeadRecordList (String userId, final ListingInterface listingInterface) {
+    public void fetchLeadRecordList (final ListingInterface listingInterface) {
         retrofit = new Retrofit.Builder()
             .baseUrl("https://app.prosperna.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
         leadsApi = retrofit.create(LeadsApi.class);
 
-        Call<model.LeadsModel> call = leadsApi.getLeads(userId, page);
+        Call<model.LeadsModel> call = leadsApi.getLeads(this.userId, page);
 
         call.enqueue(new Callback<LeadsModel>() {
             @Override
