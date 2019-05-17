@@ -8,7 +8,6 @@ import io.github.marmagzzz.makepupp.my_interface.FetchingInterface;
 import model.LeadsModel;
 import retrofit2.Response;
 
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,7 +30,7 @@ public class ListingController {
 
         this.taskTimer = new Timer();
         this.leadsAdapter = new LeadsAdapter(null);
-        this.listingModel = new ListingModel();
+        this.listingModel = listingModel;
 
     }
 

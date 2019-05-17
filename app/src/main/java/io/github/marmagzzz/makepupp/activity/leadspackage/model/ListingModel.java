@@ -14,14 +14,19 @@ import java.util.ArrayList;
 public class ListingModel {
 
     private ArrayList<model.Record> leadRecordsList;
-    private ListingInterface listingInterface;
     private LeadsApi leadsApi;
     private Retrofit retrofit;
     private int page;
+    private String userId;
 
-    public ListingModel() {
+    public ListingModel(String userId) {
+        this.userId = userId;
         this.page = 0;
         this.leadRecordsList = new ArrayList<>();
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public int getPage() {
