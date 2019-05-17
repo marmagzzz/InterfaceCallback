@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".activity.Leads">
+        tools:context=".activity.leadspackage.Leads">
 
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/lead_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
+        <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/lead_recyclerview"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
+        <!--</android.support.v7.widget.RecyclerView>-->
+        
+        <LinearLayout
+            android:id="@+id/leads_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-</LinearLayout>
+        </LinearLayout>
+        
+
+</android.support.constraint.ConstraintLayout>

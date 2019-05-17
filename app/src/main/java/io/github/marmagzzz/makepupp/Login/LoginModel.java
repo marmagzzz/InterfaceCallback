@@ -1,7 +1,5 @@
 package io.github.marmagzzz.makepupp.Login;
 
-import android.content.Intent;
-import io.github.marmagzzz.makepupp.activity.Leads;
 import io.github.marmagzzz.makepupp.my_interface.LoginApi;
 import io.github.marmagzzz.makepupp.network.RetrofitInstance;
 import model.User;

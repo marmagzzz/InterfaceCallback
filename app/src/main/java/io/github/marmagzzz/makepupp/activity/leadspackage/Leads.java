@@ -52,7 +52,14 @@ public class Leads extends AppCompatActivity {
         listingController.fetchListing(new FetchingInterface() {
             @Override
             public void onSuccessFetchingList(LeadsAdapter leadsAdapter) {
+                //Save state position of recycler view
+                leadsRecyclerViewFragment.saveRecyclerViewCurrentPosition();
+
+                //Set adapter for recycler view
                 leadsRecyclerViewFragment.setListingAdapter(leadsAdapter);
+
+                //Retaining position of view for recycler view
+                leadsRecyclerViewFragment.restoreRecyclerViewLastPosition();
             }
 
             @Override

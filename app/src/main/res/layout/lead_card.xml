@@ -9,7 +9,7 @@
         android:elevation="10dp"
         app:cardPreventCornerOverlap="false"
         android:background="@color/colorAccent"
-        tools:context=".activity.Leads">
+        tools:context=".activity.leadspackage.Leads">
 
     <LinearLayout
             android:paddingVertical="40dp"

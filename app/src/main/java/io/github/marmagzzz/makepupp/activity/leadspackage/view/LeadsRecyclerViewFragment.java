@@ -2,6 +2,7 @@ package io.github.marmagzzz.makepupp.activity.leadspackage.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ public class LeadsRecyclerViewFragment extends Fragment {
     private RecyclerView listingRecyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Context container;
+    private Parcelable recyclerViewState;
 
 
     @Override
@@ -33,9 +35,19 @@ public class LeadsRecyclerViewFragment extends Fragment {
         this.layoutManager = new LinearLayoutManager(rootView.getContext());
         this.listingRecyclerView.setLayoutManager(layoutManager);
 
+        saveRecyclerViewCurrentPosition();
+
         this.container = getActivity();
 
         return rootView;
+    }
+
+    public void saveRecyclerViewCurrentPosition(){
+        this.recyclerViewState = this.listingRecyclerView.getLayoutManager().onSaveInstanceState();
+    }
+
+    public void restoreRecyclerViewLastPosition() {
+        this.listingRecyclerView.getLayoutManager().onRestoreInstanceState(this.recyclerViewState);
     }
 
     public void setListingAdapter(LeadsAdapter leadsAdapter) {
