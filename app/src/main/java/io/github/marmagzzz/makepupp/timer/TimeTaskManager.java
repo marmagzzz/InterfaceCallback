@@ -1,7 +1,6 @@
 package io.github.marmagzzz.makepupp.timer;
 
 import android.util.Log;
-import io.github.marmagzzz.makepupp.my_interface.TimerInterface;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,24 +12,24 @@ public class TimeTaskManager {
     private boolean shouldContinue;
     private Thread thread;
 
-    public TimeTaskManager(){
+    public TimeTaskManager(int intervalTime){
 
         thread = new Thread();
         this.taskTimer = new Timer();
-        this.time = 10000;
+        this.time = intervalTime;
         this.subTime = 0;
         this.shouldContinue = false;
     }
 
-    public void start(final timerProgress timerProgress, final Runnable assignedTask){
+    public void start(final TimerInterface timerProgress, final Runnable assignedTask){
         this.shouldContinue = true;
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (subTime <= time && shouldContinue){
+                while (shouldContinue){
                     try {
-                        timerProgress.onGoing(getProgress());
-                        if(subTime != time){
+                        if(subTime <= time){
+                            timerProgress.onGoing(subTime, time);
                             setProgress();
                         }
                         else{
@@ -41,6 +40,7 @@ public class TimeTaskManager {
                     } catch (Exception e) {
                         e.printStackTrace();
                         timerProgress.onStop(e);
+                        stop();
                     }
                 }
             }
@@ -63,13 +63,9 @@ public class TimeTaskManager {
         this.subTime = this.subTime + 1000;
     }
 
-    public int getProgress(){
-        return (this.subTime / this.time) * 100;
-    }
-
-    public interface timerProgress {
-        void onGoing(int progress);
-        void onStop(Exception e);
+    public double getProgress(){
+//        return (this.subTime / this.time) * 100;
+        return this.subTime;
     }
 
 }

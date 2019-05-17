@@ -20,6 +20,7 @@
             android:orientation="vertical">
                 <TextView
                     android:text="Progress: "
+                    android:textAlignment="center"
                     android:id="@+id/textview_progress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -16,8 +16,8 @@ import io.github.marmagzzz.makepupp.R;
 import io.github.marmagzzz.makepupp.activity.leadspackage.RecyclerAdapter.LeadsAdapter;
 import io.github.marmagzzz.makepupp.activity.leadspackage.view.LeadsRecyclerViewFragment;
 import io.github.marmagzzz.makepupp.my_interface.FetchingInterface;
-import io.github.marmagzzz.makepupp.my_interface.TimerInterface;
 import io.github.marmagzzz.makepupp.timer.TimeTaskManager;
+import io.github.marmagzzz.makepupp.timer.TimerInterface;
 
 import java.util.concurrent.Callable;
 
@@ -35,6 +35,8 @@ public class Leads extends AppCompatActivity {
     private TimeTaskManager timeTaskManager;
 
     private TextView textViewProgress;
+
+    private static int intervalTime = 10000;
 
 
     @Override
@@ -64,12 +66,17 @@ public class Leads extends AppCompatActivity {
         //CONTROLLER
         listingController = new ListingController(listingModel, leadsRecyclerViewFragment);
 
-        timeTaskManager = new TimeTaskManager();
+        timeTaskManager = new TimeTaskManager(intervalTime);
 
-        timeTaskManager.start(new TimeTaskManager.timerProgress() {
+        timeTaskManager.start(new TimerInterface() {
             @Override
-            public void onGoing(int progress) {
-                System.out.println(progress);
+            public void onGoing(final double progress, final int interval) {
+                Leads.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textViewProgress.setText("Progress: " + (progress / interval) * 100 + "%");
+                    }
+                });
             }
 
             @Override
@@ -100,49 +107,6 @@ public class Leads extends AppCompatActivity {
                 });
             }
         });
-
-//        timeTaskManager = new TimeTaskManager(new Runnable() {
-//            @Override
-//            public void run() {
-//                listingController.fetchListing(new FetchingInterface() {
-//                    @Override
-//                    public void onSuccessFetchingList(LeadsAdapter leadsAdapter) {
-//                        //Save state position of recycler view
-//                        leadsRecyclerViewFragment.saveRecyclerViewCurrentPosition();
-//
-//                        //Set adapter for recycler view
-//                        leadsRecyclerViewFragment.setListingAdapter(leadsAdapter);
-//
-//                        //Retaining position of view for recycler view
-//                        leadsRecyclerViewFragment.restoreRecyclerViewLastPosition();
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailFetchingList(String message) {
-//                        timeTaskManager.stop();
-//                        leadsRecyclerViewFragment.prompFailMessage(message);
-//                    }
-//                });
-//            }
-//        });
-
-//        timeTaskManager.start(new TimeTaskManager.timerProgress() {
-//            @Override
-//            public void onGoing(int progress) {
-//                Log.v("PROGRESS", String.valueOf(progress));
-//            }
-//
-//            @Override
-//            public void onStop(final Exception e) {
-////                Leads.this.runOnUiThread(new Runnable() {
-////                    @Override
-////                    public void run() {
-////                        textViewProgress.setText(e.getMessage());
-////                    }
-////                });
-//            }
-//        });
 
     }
 
